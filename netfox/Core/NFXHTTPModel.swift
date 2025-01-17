@@ -47,6 +47,8 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     
     @objc public var noResponse = true
     
+    @objc public var customName: String?
+    
     func saveRequest(_ request: URLRequest) {
         requestDate = Date()
         requestTime = getTimeFromDate(requestDate!)
@@ -59,6 +61,10 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         requestHeaders = request.getNFXHeaders()
         requestType = requestHeaders?["Content-Type"] as! String?
         requestCurl = request.getCurl()
+        
+        if let debugHeaderName = NFX.sharedInstance().getDebugHeaderName(), let customRequestName = requestHeaders?[debugHeaderName] as? String {
+            customName = customRequestName
+        }
     }
     
     func saveRequestBody(_ request: URLRequest) {

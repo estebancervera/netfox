@@ -49,6 +49,7 @@ open class NFX: NSObject {
     fileprivate var ignoredURLs = [String]()
     fileprivate var ignoredURLsRegex = [NSRegularExpression]()
     fileprivate var lastVisitDate: Date = Date()
+    fileprivate var debugHeaderName: String?
     
     internal var cacheStoragePolicy = URLCache.StoragePolicy.notAllowed
     
@@ -180,6 +181,10 @@ open class NFX: NSObject {
         ignoredURLs.append(url)
     }
     
+    @objc open func setDebugHeaderName(_ headerName: String?) {
+        debugHeaderName = headerName
+    }
+    
     @objc open func getSessionLog() -> Data? {
         return try? Data(contentsOf: NFXPath.sessionLogURL)
     }
@@ -247,6 +252,11 @@ open class NFX: NSObject {
     
     func getSelectedGesture() -> ENFXGesture {
         return selectedGesture
+    }
+    
+    
+    func getDebugHeaderName() -> String? {
+        return debugHeaderName
     }
     
 }
