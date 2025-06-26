@@ -18,6 +18,7 @@ public enum HTTPModelShortType: String, CaseIterable {
     case HTML = "HTML"
     case IMAGE = "Image"
     case OTHER = "Other"
+    case GRAPHQL = "GraphQL"
 }
 
 
@@ -32,6 +33,8 @@ public extension HTTPModelShortType {
             self = .HTML
         } else if contentType.hasPrefix("image/") {
             self = .IMAGE
+        } else if (contentType.contains("application/graphql")) {
+            self = .GRAPHQL
         } else {
             self = .OTHER
         }
