@@ -1,4 +1,4 @@
-# This is a fork from netfox
+# This is a fork from kasketis/netfox
 ## Changes
 - Added SwiftUI support
 - Added GraphQL query name support
@@ -6,7 +6,6 @@
 
 ## Roadmap
 - Add Statistics & Charts
-
 
 <p align="center">
   <img src="netfox-logo.svg" />
