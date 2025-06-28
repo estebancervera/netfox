@@ -14,6 +14,7 @@ import UIKit
 
 public enum HTTPModelShortType: String, CaseIterable {
     case JSON = "JSON"
+    case GRAPHQL = "GraphQL"
     case XML = "XML"
     case HTML = "HTML"
     case IMAGE = "Image"
@@ -32,6 +33,8 @@ public extension HTTPModelShortType {
             self = .HTML
         } else if contentType.hasPrefix("image/") {
             self = .IMAGE
+        } else if (contentType.contains("application/graphql")) {
+            self = .GRAPHQL
         } else {
             self = .OTHER
         }

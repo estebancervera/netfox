@@ -32,6 +32,7 @@ open class NFX: NSObject {
     
     #if os(iOS)
         fileprivate var navigationViewController: UINavigationController?
+    fileprivate var hostingViewController:  UIHostingController<NFXListControllerView>?
     #endif
     
     fileprivate enum Constants: String {
@@ -49,6 +50,8 @@ open class NFX: NSObject {
     fileprivate var ignoredURLs = [String]()
     fileprivate var ignoredURLsRegex = [NSRegularExpression]()
     fileprivate var lastVisitDate: Date = Date()
+    fileprivate var debugHeaderName: String?
+    fileprivate var type: NFXUIType = .uikit
     
     internal var cacheStoragePolicy = URLCache.StoragePolicy.notAllowed
     
@@ -157,6 +160,10 @@ open class NFX: NSObject {
     }
     
     #if os(iOS)
+    @objc open func setUIType(_ type: NFXUIType) {
+        self.type = type
+    }
+    
     @objc open func show(on rootViewController: UIViewController) {
         guard started, presented == false else { return }
 
@@ -178,6 +185,10 @@ open class NFX: NSObject {
     
     @objc open func ignoreURL(_ url: String) {
         ignoredURLs.append(url)
+    }
+    
+    @objc open func setDebugHeaderName(_ headerName: String?) {
+        debugHeaderName = headerName
     }
     
     @objc open func getSessionLog() -> Data? {
@@ -249,6 +260,11 @@ open class NFX: NSObject {
         return selectedGesture
     }
     
+    
+    func getDebugHeaderName() -> String? {
+        return debugHeaderName
+    }
+    
 }
 
 #if os(iOS)
@@ -263,6 +279,10 @@ extension NFX {
     }
 
     fileprivate func showNFXFollowingPlatform() {
+        if type == .swiftui {
+            showNFXSwiftUI()
+            return
+        }
         showNFX(on: presentingViewController)
     }
     
@@ -295,6 +315,12 @@ extension NFX {
     }
     
     fileprivate func hideNFXFollowingPlatform(_ completion: (() -> Void)?) {
+        if type == .swiftui {
+//            presentingViewController?.presentingViewController?.dismiss(animated: true, completion: completion)
+            hostingViewController?.presentingViewController?.dismiss(animated: true, completion: completion)
+            hostingViewController = nil
+            return
+        }
         navigationViewController?.presentingViewController?.dismiss(animated: true, completion: completion)
         navigationViewController = nil
     }
@@ -308,6 +334,35 @@ extension NFX: UIAdaptivePresentationControllerDelegate {
         self.presented = false
     }
 }
+
+public extension NFX {
+    @objc enum NFXUIType: Int {
+        case uikit
+        case swiftui
+    }
+}
+
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
+#if os(iOS) && canImport(SwiftUI)
+extension NFX {
+    /// Presents the SwiftUI-based NFXListControllerView in a modal sheet.
+    @objc public func showNFXSwiftUI() {
+        guard started, presented == false else { return }
+        
+        let swiftUIView = NFXListControllerView()
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        hostingController.modalPresentationStyle = .overFullScreen
+        hostingController.presentationController?.delegate = self
+        presentingViewController?.present(hostingController, animated: true, completion: {
+            self.presented = true
+        })
+        self.hostingViewController = hostingController
+    }
+}
+#endif
 
 #elseif os(OSX)
     
@@ -354,4 +409,6 @@ extension NFX {
     }
 }
 
+
 #endif
+

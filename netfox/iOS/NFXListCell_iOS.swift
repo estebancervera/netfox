@@ -112,7 +112,7 @@ class NFXListCell: UITableViewCell {
     }
     
     func configForObject(_ obj: NFXHTTPModel) {
-        setURL(obj.requestURL ?? "-")
+        setURL(obj.customName ?? obj.requestURL ?? "-")
         setStatus(obj.responseStatus ?? 999)
         setTimeInterval(obj.timeInterval ?? 999)
         setRequestTime(obj.requestTime ?? "-")
