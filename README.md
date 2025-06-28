@@ -1,3 +1,13 @@
+# This is a fork from netfox
+## Changes
+- Added SwiftUI support
+- Added GraphQL query name support
+- Added SwiftUI Redesign UI
+
+## Roadmap
+- Add Statistics & Charts
+
+
 <p align="center">
   <img src="netfox-logo.svg" />
 </p>
@@ -25,9 +35,8 @@ For Swift 3.2 support, use version [1.12.1](https://github.com/kasketis/netfox/r
 
 Feel free to contribute :)
 
-### Overview
-| ![](https://raw.githubusercontent.com/kasketis/netfox/master/assets/overview1_5_3.gif)  | ![](https://cloud.githubusercontent.com/assets/1402212/12893260/78f90916-ce90-11e5-830a-d1a1b91b2ac4.png) |
-|---|---|
+
+## 
 
 ## Installation
 
@@ -35,18 +44,9 @@ Feel free to contribute :)
 
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
 
-To add `netfox` as a package dependency to your Xcode project, select `File > Add Packages` and enter as repository URL the `https://github.com/kasketis/netfox` (always choose the latest release)
+To add `netfox` as a package dependency to your Xcode project, select `File > Add Packages` and enter as repository URL the `https://github.com/estebancervera/netfox` (always choose the latest release)
 
 For more info, please check [here](https://developer.apple.com/documentation/swift_packages/adding_package_dependencies_to_your_app)
-
-### CocoaPods
-
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. To integrate netfox into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
-<pre>
-use_frameworks!
-pod 'netfox'
-</pre>
 
 To bundle only on some build configurations specify them after pod.
 
@@ -55,13 +55,6 @@ use_frameworks!
 pod 'netfox', :configurations => ['Debug', 'Test']
 </pre>
 
-### Carthage
-
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate netfox into your Xcode project using Carthage, specify it in your `Cartfile`:
-
-<pre>
-github "kasketis/netfox"
-</pre>
 ### Manually
 
 If you prefer not to use dependency managers, you can integrate netfox into your project manually.

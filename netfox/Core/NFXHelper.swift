@@ -14,11 +14,11 @@ import UIKit
 
 public enum HTTPModelShortType: String, CaseIterable {
     case JSON = "JSON"
+    case GRAPHQL = "GraphQL"
     case XML = "XML"
     case HTML = "HTML"
     case IMAGE = "Image"
     case OTHER = "Other"
-    case GRAPHQL = "GraphQL"
 }
 
 

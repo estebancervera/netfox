@@ -3,7 +3,7 @@
 //  netfox
 //
 //  Created by Esteban Cervera on 6/25/25.
-//  Copyright © 2025 kasketis. All rights reserved.
+//  Copyright © 2025. All rights reserved.
 //
 
 import SwiftUI
@@ -34,14 +34,14 @@ struct NFXDetailConstants {
         case tooLongToShowTitle = "Too long to show. If you want to see it, please tap the following button\n"
     }
     
-    static func getText(for type: NNFXDetailType, with object: NFXHTTPModel) -> (NSAttributedString, String?) {
+    static func getText(for type: NNFXDetailType, with object: NFXHTTPModel, headerWithFooter: Bool = false) -> (NSAttributedString, String?) {
         switch type {
         case .info:
             (getInfoStringFromObject(object), nil)
         case .request:
-            (getRequestStringFromObject(object), getRequestBodyStringFooter(object))
+            (getRequestStringFromObject(object, withFooter: headerWithFooter), getRequestBodyStringFooter(object))
         case .response:
-            (getResponseStringFromObject(object), getResponseBodyStringFooter(object))
+            (getResponseStringFromObject(object, withFooter: headerWithFooter), getResponseBodyStringFooter(object))
         }
     }
 }

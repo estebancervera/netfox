@@ -3,7 +3,7 @@
 //  netfox
 //
 //  Created by Esteban Cervera on 6/25/25.
-//  Copyright © 2025 kasketis. All rights reserved.
+//  Copyright © 2025. All rights reserved.
 //
 
 import SwiftUI
